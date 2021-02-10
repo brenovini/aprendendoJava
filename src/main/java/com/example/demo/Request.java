@@ -14,9 +14,15 @@ public class Request {
     }
 
     @PostMapping
-    public String post(@RequestParam String uname, @RequestParam String psw){
+    public String login(@RequestParam String uname, @RequestParam String psw){
        Validate validate = new Validate();
        return validate.execute(uname, psw);
 
+    }
+
+    @PostMapping("/register")
+    public String register(@RequestParam String usuario, @RequestParam String senha, @RequestParam String senha2){
+        System.out.println(usuario + " - " + senha + " - " + senha2);
+        return "sucesso!";
     }
 }
