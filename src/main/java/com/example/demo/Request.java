@@ -1,5 +1,9 @@
 package com.example.demo;
 
+import com.example.demo.model.RequestLogin;
+import com.example.demo.model.ResponseLogin;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,9 +18,14 @@ public class Request {
     }
 
     @PostMapping
-    public String login(@RequestParam String uname, @RequestParam String psw){
+    public ResponseEntity<ResponseLogin> login(@RequestBody RequestLogin requestLogin){
        Validate validate = new Validate();
-       return validate.execute(uname, psw);
+        String message = validate.execute(requestLogin.getUsername(), requestLogin.getPassword());
+        ResponseLogin responseLogin = new ResponseLogin(message);
+        if (!"login realizado com sucesso".equals(message)) {
+            return new ResponseEntity<>(responseLogin, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(responseLogin, HttpStatus.OK);
 
     }
 
