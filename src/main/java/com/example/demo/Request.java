@@ -1,7 +1,8 @@
 package com.example.demo;
 
 import com.example.demo.model.RequestLogin;
-import com.example.demo.model.ResponseLogin;
+import com.example.demo.model.RequestRegister;
+import com.example.demo.model.ResponseMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,20 +19,21 @@ public class Request {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseLogin> login(@RequestBody RequestLogin requestLogin){
+    public ResponseEntity<ResponseMessage> login(@RequestBody RequestLogin requestLogin){
        Validate validate = new Validate();
         String message = validate.execute(requestLogin.getUsername(), requestLogin.getPassword());
-        ResponseLogin responseLogin = new ResponseLogin(message);
+        ResponseMessage responseMessage = new ResponseMessage(message);
         if (!"login realizado com sucesso".equals(message)) {
-            return new ResponseEntity<>(responseLogin, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(responseLogin, HttpStatus.OK);
+        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
 
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam String usuario, @RequestParam String senha, @RequestParam String senha2){
-        System.out.println(usuario + " - " + senha + " - " + senha2);
-        return "sucesso!";
+    public ResponseEntity<ResponseMessage> register(@RequestBody RequestRegister requestRegister){
+        System.out.println(requestRegister.getUsername() + " - " + requestRegister.getPassword() + " - " + requestRegister.getPassword2());
+        ResponseMessage responseMessage = new ResponseMessage("Usuario cadastrado com sucesso!");
+        return new ResponseEntity<>(responseMessage, HttpStatus.CREATED);
     }
 }

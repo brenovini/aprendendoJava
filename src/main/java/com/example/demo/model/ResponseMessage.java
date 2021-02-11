@@ -1,10 +1,10 @@
 package com.example.demo.model;
 
-public class ResponseLogin {
+public class ResponseMessage {
 
     private String message;
 
-    public ResponseLogin(String message) {
+    public ResponseMessage(String message) {
         this.message = message;
     }
 
