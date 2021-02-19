@@ -33,7 +33,9 @@ public class Request {
     @PostMapping("/register")
     public ResponseEntity<ResponseMessage> register(@RequestBody RequestRegister requestRegister){
         System.out.println(requestRegister.getUsername() + " - " + requestRegister.getPassword() + " - " + requestRegister.getPassword2());
-        ResponseMessage responseMessage = new ResponseMessage("Usuario cadastrado com sucesso!");
+        ValidarCadastro validarCadastro = new ValidarCadastro();
+        String mensagem = validarCadastro.validar(requestRegister.getUsername(),requestRegister.getPassword(),requestRegister.getPassword2());
+        ResponseMessage responseMessage = new ResponseMessage(mensagem);
         return new ResponseEntity<>(responseMessage, HttpStatus.CREATED);
     }
 }
