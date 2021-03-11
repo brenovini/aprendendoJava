@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class Request {
 
@@ -16,6 +18,11 @@ public class Request {
         carro.setAno(2020);
         carro.setModelo("ARGOS");
         return carro;
+    }
+
+    @GetMapping("/usuarios")
+    public List<Usuario> getUsuarios(){
+        return UsuarioSingleton.getInstance().getUsuarios();
     }
 
     @PostMapping
@@ -33,8 +40,8 @@ public class Request {
     @PostMapping("/register")
     public ResponseEntity<ResponseMessage> register(@RequestBody RequestRegister requestRegister){
         System.out.println(requestRegister.getUsername() + " - " + requestRegister.getPassword() + " - " + requestRegister.getPassword2());
-        ValidarCadastro validarCadastro = new ValidarCadastro();
-        String mensagem = validarCadastro.validar(requestRegister.getUsername(),requestRegister.getPassword(),requestRegister.getPassword2());
+        CadastrarUsuario cadastrarusuario = new CadastrarUsuario();
+        String mensagem = cadastrarusuario.cadastrar(requestRegister.getUsername(),requestRegister.getPassword(),requestRegister.getPassword2());
         ResponseMessage responseMessage = new ResponseMessage(mensagem);
         return new ResponseEntity<>(responseMessage, HttpStatus.CREATED);
     }

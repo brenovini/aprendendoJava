@@ -2,6 +2,8 @@ package com.example.demo;
 
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class Validate {
     /**
@@ -14,14 +16,15 @@ public class Validate {
      * @param psw
      */
     public String execute(String uname, String psw) {
-        if ("alex".equals(uname)&& "147".equals(psw) ){
-            return "login realizado com sucesso";
-        } else if ("alex".equals(uname)&& !"147".equals(psw)){
-            return "usuario ou senha incorreto";
-        }else if (!"alex".equals(uname)){
-            return "usuario invalido";
-        }
+        List<Usuario> usuarios = UsuarioSingleton.getInstance().getUsuarios();
 
-        return null;
+        for (Usuario usuario  : usuarios) {
+
+            if (usuario.getUsername().equals(uname)&& usuario.getPassword().equals(psw) ){
+                return "login realizado com sucesso";
+            }
+
+        }
+        return "usuario nao cadastrado";
     }
 }

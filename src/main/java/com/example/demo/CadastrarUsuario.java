@@ -1,6 +1,6 @@
 package com.example.demo;
 
-public class ValidarCadastro  {
+public class CadastrarUsuario {
     /**
      * Validar se o usuario nao esta vazio (usuario nao informado)
      * Validar se a senha nao esta vazia(senha nao informada)
@@ -11,7 +11,7 @@ public class ValidarCadastro  {
      * @param confirmarsenha
      * @return
      */
-    public String validar(String usuario,String senha,String confirmarsenha){
+    public String cadastrar(String usuario, String senha, String confirmarsenha){
         String mensagem = "";
         if (usuario==null||"".equals(usuario)){
             mensagem = "usuario nao informado";
@@ -23,6 +23,10 @@ public class ValidarCadastro  {
         }else if (!senha.equals(confirmarsenha)){
             mensagem = "senha nao e igual confirmarsenha";
         }else {
+            Usuario usuarioClass = new Usuario();
+            usuarioClass.setUsername(usuario);
+            usuarioClass.setPassword(senha);
+            UsuarioSingleton.getInstance().adicionar(usuarioClass);
             mensagem = "usuario cadasrado com sucesso";
         }
         return mensagem;
