@@ -49,6 +49,8 @@ public class Request {
 
     @GetMapping("/livros")
     public List<Livro> getLivros(){
-        return new ArrayList<>();
+        CadastrarLivros cadastrarLivros = new CadastrarLivros();
+
+        return cadastrarLivros.cadastrar("Usa a cabeça Java", 563, "Gringo");
     }
 }
