@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -47,7 +48,7 @@ public class Request {
     }
 
     @GetMapping("/livros")
-    public List<Usuario> getLivros(){
-        return UsuarioSingleton.getInstance().getUsuarios();
+    public List<Livro> getLivros(){
+        return new ArrayList<>();
     }
 }
