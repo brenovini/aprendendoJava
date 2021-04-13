@@ -45,4 +45,9 @@ public class Request {
         ResponseMessage responseMessage = new ResponseMessage(mensagem);
         return new ResponseEntity<>(responseMessage, HttpStatus.CREATED);
     }
+
+    @GetMapping("/livros")
+    public List<Usuario> getLivros(){
+        return UsuarioSingleton.getInstance().getUsuarios();
+    }
 }
