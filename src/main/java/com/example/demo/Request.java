@@ -50,7 +50,12 @@ public class Request {
     @GetMapping("/livros")
     public List<Livro> getLivros(){
         CadastrarLivros cadastrarLivros = new CadastrarLivros();
+        cadastrarLivros.gerarLivros();
+        return cadastrarLivros.livros;
+    }
 
-        return cadastrarLivros.cadastrar("Usa a cabeça Java", 563, "Gringo");
+    @PostMapping("/livro")
+    public ResponseEntity<String> novoLivro(@RequestBody LivroRequest livroRequest){
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
