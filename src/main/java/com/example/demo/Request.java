@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,7 +22,7 @@ public class Request {
 
     @GetMapping("/usuarios")
     public List<Usuario> getUsuarios(){
-        return UsuarioSingleton.getInstance().getUsuarios();
+        return BancoSingleton.getInstance().getUsuarios();
     }
 
     @PostMapping
@@ -49,13 +48,25 @@ public class Request {
 
     @GetMapping("/livros")
     public List<Livro> getLivros(){
-        CadastrarLivros cadastrarLivros = new CadastrarLivros();
-        cadastrarLivros.gerarLivros();
-        return cadastrarLivros.livros;
+        return BancoSingleton.getInstance().getLivros();
     }
 
     @PostMapping("/livro")
     public ResponseEntity<String> novoLivro(@RequestBody LivroRequest livroRequest){
+        CadastrarLivros cadastrarLivros = new CadastrarLivros();
+        cadastrarLivros.cadastrar(livroRequest.getTitulo(), livroRequest.getPaginas(), livroRequest.getAutor());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PostMapping("/reservar")
+    public ResponseEntity<String> reservar(@RequestBody LivroRequest livroRequest){
+        // BUSCAR O LIVRO NA LISTA DE LIVROS CADASTRADOS, SE NÃO ENCONTRAR O LIVRO NÃO EXISTE
+        // BUSCAR O USUARIO NA LISTA DE USUARIOS, SE NÃO ENCONTRAR USUARIO INEXISTENTE
+        // VERIFICAR SE O LIVRO JÁ FOI ALUGADO, CRIAR UM CAMPO BOOLEANO NA CLASSE LIVROS E SINALIZAR SE FOI OU NAO EMPRESTADO
+        // CASO FOR EMPRESTADO RETORNAR A MENSAGEM DE ERRO
+        CadastrarLivros cadastrarLivros = new CadastrarLivros();
+        cadastrarLivros.cadastrar(livroRequest.getTitulo(), livroRequest.getPaginas(), livroRequest.getAutor());
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }

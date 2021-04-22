@@ -26,7 +26,7 @@ public class CadastrarUsuario {
             Usuario usuarioClass = new Usuario();
             usuarioClass.setUsername(usuario);
             usuarioClass.setPassword(senha);
-            UsuarioSingleton.getInstance().adicionar(usuarioClass);
+            BancoSingleton.getInstance().adicionar(usuarioClass);
             mensagem = "usuario cadasrado com sucesso";
         }
         return mensagem;

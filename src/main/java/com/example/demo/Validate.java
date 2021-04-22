@@ -16,7 +16,7 @@ public class Validate {
      * @param psw
      */
     public String execute(String uname, String psw) {
-        List<Usuario> usuarios = UsuarioSingleton.getInstance().getUsuarios();
+        List<Usuario> usuarios = BancoSingleton.getInstance().getUsuarios();
 
         for (Usuario usuario  : usuarios) {
 

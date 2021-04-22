@@ -3,7 +3,7 @@ package com.example.demo;
 public class LivroRequest {
     private String titulo ;
     private String autor ;
-    private String paginas;
+    private int paginas;
 
     public String getTitulo() {
         return titulo;
@@ -21,11 +21,11 @@ public class LivroRequest {
         this.autor = autor;
     }
 
-    public String getPaginas() {
+    public int getPaginas() {
         return paginas;
     }
 
-    public void setPaginas(String paginas) {
+    public void setPaginas(int paginas) {
         this.paginas = paginas;
     }
 }
